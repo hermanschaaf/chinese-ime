@@ -20,7 +20,7 @@
   #chinese-ime ul.options {
     margin: 0;
     padding: 0;
-    list-style-type: decimal; }
+    list-style-type: none; }
     #chinese-ime ul.options li {
       float: left;
       padding: 0.2em; }

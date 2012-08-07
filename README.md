@@ -25,9 +25,13 @@ Features
 Demo
 -----------
 
-For a live demo of the plugin, go check out [Chinese]().
+For a live demo of the plugin, go check out [ChineseIME.com](http://www.chineseime.com). There is also a demo included in this package in the `demo` folder.
+
+Tested in
+-----------
+
+I've so far tested this in Chrome (Chromium v.18) and Firefox 13+, where all works as expected. I don't really have a test suite available right now, so if anyone could contribute further test results, that would be great!
 
 Authors
 -----------
  - Herman Schaaf (herman [ at ] ironzebra [ 。] com)
- - Your name could be next
