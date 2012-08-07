@@ -21,3 +21,13 @@ Features
  - A range of different settings that can be passed as parameters
  - Licensed under the Lesser General Public Licence (LGPL), which means you can use it in any sort of project, redistribute it and change it any way you want, as long as you retain the original copyright notice.
  - Backend suggestions powered either by Google Translate or your own custom service
+
+Demo
+-----------
+
+For a live demo of the plugin, go check out [Chinese]().
+
+Authors
+-----------
+ - Herman Schaaf (herman [ at ] ironzebra [ 。] com)
+ - Your name could be next
