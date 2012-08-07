@@ -1,0 +1,13 @@
+body {background: #1C1B1C;}
+body, textarea {font-size: 18px; font-family: 'open sans', arial, sans-serif;}
+a {color: white;}
+h1 {color: white; margin: 0; padding: 0;  font-weight: bold; font-size: 36px; text-align: center; text-shadow: 2px 2px 0 rgba(0,0,0,0.5);}
+h2 {color: #ffe35d; margin: 0; padding: 0; font-weight: bold; font-size: 18px; text-align: right; text-shadow: 2px 2px 0 rgba(0,0,0,0.5);}
+textarea.chinese {width: 410px; height: 200px; border: 5px solid #aaa; padding: 10px;}
+
+.header {width: 400px; margin: 50px auto;}
+.container {display: block; width: 410px; margin: 50px auto;}
+.footer {font-family: 'open sans', sans-serif; width: 800px; margin: 80px auto 0; text-align: center; color: white; text-shadow: 1px 1px 1px rgba(0,0,0,0.5);}
+.footer .attribution {position: fixed; bottom: 10px; right: 10px; font-size: 12px; }
+.footer .attribution a {color: white;}
+.footer .attribution img {width: 20px; margin: 0 10px; float: left; border: 2px solid white; box-shadow: 2px 2px 1px rgba(0,0,0,0.7); -moz-box-shadow: 2px 2px 1px rgba(0,0,0,0.7);}

@@ -1,0 +1,45 @@
+<html>
+<head>
+    <meta name="http-equiv" content="Content-type: text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="demo.css" />
+    <link rel="stylesheet" type="text/css" href="../ime.css" />
+</head>
+<body>
+
+    <div class="header">
+        <h1>Chinese Input Method</h1>
+        <h2>Free and Open Source</h2>
+    </div>
+    <div class="container">
+        <textarea class="chinese"></textarea>
+    </div>
+    <div class="footer">
+        <p>A Free, Easy-to-use, Online Chinese Input Method Editor for the Learner and Native Alike</p>
+        <p class="attribution"><img src="https://si0.twimg.com/profile_images/1385624901/ironzebra2_normal.png"/> Developed by Herman Schaaf (<a href="http://www.twitter.com/ironzeb">@ironzeb</a>)</p>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
+    
+    <!-- Load this script if you want traditional character support -->
+    <script type="text/javascript" charset="utf-8" src="../trad_chars.js"></script>
+    <!-- Load this script if you want support for adding the text at the caret position -->
+    <script type="text/javascript" src="../caret.js"></script>
+    <!-- The actual script -->
+    <script type="text/javascript" src="../jQuery.chineseIME.js"></script>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("textarea.chinese").chineseInput({
+            debug: false, // print debug messages
+            input: {
+                initial: 'traditional', // or 'simplified'
+                allowChange: true // allow transition between traditional and simplified
+            },
+            allowHide: true, // allow the chinese input to be switched off
+            active: true // whether or not the plugin should be active by default
+        });
+    });
+    </script>
+</body>
+</html>

@@ -16,6 +16,8 @@ Features
  - Supports both simplified and traditional input methods
  - Smaller than 20kB, super fast
  - Completely stylable through CSS
+ - Designed to be as unobtrusive as possible
+ - Doesn't interfere with OS-builtin input methods
  - A range of different settings that can be passed as parameters
  - Licensed under the Lesser General Public Licence (LGPL), which means you can use it in any sort of project, redistribute it and change it any way you want, as long as you retain the original copyright notice.
  - Backend suggestions powered either by Google Translate or your own custom service
