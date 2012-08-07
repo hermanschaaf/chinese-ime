@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta name="http-equiv" content="Content-type: text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="demo.css" />
+    <link rel="stylesheet" type="text/css" href="ime.css" />
+    <style>
+        body, textarea {font-size: 18px; font-family: arial, sans-serif;}
+        textarea.chinese {width: 400px; height: 120px;}
+    </style>
+</head>
+<body>
+
+    <textarea class="chinese"></textarea>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
+    
+    <script type="text/javascript" charset="utf-8" src="characters.js"></script>
+    <script type="text/javascript" src="caret.js"></script>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("textarea.chinese").chineseInput({
+            debug: true,
+            input: {
+                initial: 'traditional', // or 'simplified'
+                allowChange: true
+            },
+            allowHide: true,
+            active: true
+        });
+    });
+    </script>
+</body>
+</html>

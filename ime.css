@@ -1,0 +1,28 @@
+/* ime.scss */
+.chinese-checkbox {
+  color: #666;
+  font-size: 14px;
+  padding: 5px; }
+
+#chinese-ime {
+  font-family: Arial, Sans-serif;
+  font-size: 14px;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #aaa;
+  width: 230px;
+  height: 60px;
+  padding: 4px; }
+  #chinese-ime .typing {
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #54BDF0; }
+  #chinese-ime ul.options {
+    margin: 0;
+    padding: 0;
+    list-style-type: decimal; }
+    #chinese-ime ul.options li {
+      float: left;
+      padding: 0.2em; }
+    #chinese-ime ul.options li.current {
+      background: #eee; }
