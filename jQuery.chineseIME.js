@@ -172,6 +172,7 @@ var _callbacks_ = {
 
         self.currentText = '';
         self.currentPage = 0; // page of given options
+        self.currentSelection = 1; // current selection on the current page (normally 1-5)
         self.lastPage = false; // are we at the last page of options?
         //self.options = [];
         self.html = '<span class="typing"></span><ul class="options"></ul>';
@@ -200,9 +201,7 @@ var _callbacks_ = {
                 var $hide = self.$active;
                 $hide.insertAfter(self.$el);
                 $hide.css({'position': 'absolute', 'z-index': 1000}).show();
-                $hide.position({my: 'left bottom',
-                                at: 'left bottom',
-                                of: self.$el});
+                self.reposition($hide);
                 $hide.find('input').click(function(){
                     self.options.active = $(this).is(':checked');
                     if (self.options.active === false){
@@ -217,10 +216,25 @@ var _callbacks_ = {
             if (self.options.input.initial == 'traditional'){
                 $.wordDatabase.traditional = true;
             }
+
+            $(window).resize($.proxy(function() {
+                this.self.updateDialog();
+                this.self.reposition();
+            }, {'self': self}));
         };
         
         self.keyDown = function(event){
             if (self.options.active) {
+                if (self.currentText.length > 0){
+                    switch(event.which){
+                        case 37: // left 
+                            self.previousChoice();
+                            return false;
+                        case 39: // right
+                            self.nextChoice();
+                            return false;
+                    }
+                }
                 switch(event.which){
                     case 8: // backspace
                         if (self.currentText.length > 0){
@@ -249,7 +263,7 @@ var _callbacks_ = {
                 } else if (self.currentText.length > 0) {
                     if (key == ' '){ 
                         // pressed space
-                        self.makeSelection(0);
+                        self.makeSelection(self.currentSelection - 1);
                     } else if (event.which >= 49 && event.which <= 53) { 
                         // pressed number between 1 and 5
                         self.makeSelection(event.which - 49);
@@ -289,6 +303,26 @@ var _callbacks_ = {
             self.updateDialog();
         }
 
+        self.nextChoice = function(){
+            if (self.currentSelection < 5) {
+                self.currentSelection += 1;
+                self.updateDialog();
+            } else {
+                self.currentSelection = 1;
+                self.nextPage(); 
+            }
+        }
+
+        self.previousChoice = function(){
+            if (self.currentSelection > 1) {
+                self.currentSelection -= 1;
+                self.updateDialog();
+            } else if (self.currentPage > 0) {
+                self.currentSelection = 5;
+                self.previousPage(); 
+            }
+        }
+
         self.makeSelection = function(selectionIndex){
             var choices = $.wordDatabase.getChoices(self.currentText);
             selectionIndex += self.currentPage * 5; // add current page to index
@@ -297,6 +331,7 @@ var _callbacks_ = {
                 self.addText(self.currentText);
                 self.currentText = '';
                 self.currentPage = 0;
+                self.currentSelection = 1;
                 self.lastPage = false;
             }
             if (choices && selectionIndex < choices.length){
@@ -305,10 +340,22 @@ var _callbacks_ = {
                 self.addText(choice);
                 self.currentText = '' + self.currentText.substring(len);
                 self.currentPage = 0;
+                self.currentSelection = 1;
                 self.lastPage = false;
             }
 
         };
+
+        self.reposition = function($el){
+            var $hide = $el;
+            if (!$hide){
+                $hide = self.$active;
+            }
+            $hide.position({my: 'left bottom',
+                                at: 'left bottom',
+                                of: self.$el,
+                                collision: "none"});
+        }
 
         self.updateDialog = function(){
             if (self.currentText.length > 0) {
@@ -324,7 +371,7 @@ var _callbacks_ = {
                     $box.find('.typing').text(self.currentText);
                     var lis = [];
                     for (var i = 0; i < 5 && i < options.length; i++) {
-                        lis.push('<li ' + (i == 0 ? 'class="current"' : '') + '> ' + (i + 1) + '. ' + options[i] +'</li>');
+                        lis.push('<li ' + (i + 1 == self.currentSelection ? 'class="current"' : '') + '> ' + (i + 1) + '. ' + options[i] +'</li>');
                     }
                     $box.find('ul').html(lis.join('\n'));
                     $box.show();

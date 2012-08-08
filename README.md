@@ -19,7 +19,7 @@ Features
  - Designed to be as unobtrusive as possible
  - Doesn't interfere with OS-builtin input methods
  - A range of different settings that can be passed as parameters
- - Licensed under the Lesser General Public Licence (LGPL), which means you can use it in any sort of project, redistribute it and change it any way you want, as long as you retain the original copyright notice.
+ - Licensed under the Lesser General Public Licence (LGPL), which means you can use it in any sort of project, commercial or otherwise, redistribute it and change it any way you want, as long as you retain the original copyright notice and keep that part of the code under the same LGPL license (so you can link to it from a commercial closed-source project, no problem)
  - Backend suggestions powered either by Google Translate or your own custom service
 
 Demo
