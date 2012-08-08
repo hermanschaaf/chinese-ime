@@ -41,6 +41,7 @@ var _callbacks_ = {
         self.num = (typeof options.num == 'undefined') ? choices.length : options.num;
         self.options = $.extend({}, self.defaultOptions, options);
         self.pending = self.options.pending;
+        self.traditional = self.options.traditional === true ? true : false;
 
         self.setChoices = function(choices, lens){
             self.choices = $.extend(true, [], choices);
@@ -59,7 +60,7 @@ var _callbacks_ = {
 
         self.getChoices = function(word){
             var word = self.words[word];
-            if (word){
+            if (word && word.traditional == self.traditional){
                 return word.choices;
             }
             return [];
@@ -75,15 +76,21 @@ var _callbacks_ = {
 
         self.hasWord = function(word, num){
             hasWord = (self.words.hasOwnProperty(word) && self.words[word].num >= num);
-            if (hasWord && self.words[word].pending === true){
-                return true;
+            if (hasWord){
+                var w = self.words[word];
+                if (w.traditional != self.traditional) {
+                    return false;
+                }
+                if (w.pending === true && w.traditional != self.traditional) {
+                    return true;
+                }
             }
             return hasWord;
         }
 
         self.addWord = function(word, num){
             num = (typeof num == 'undefined' ? 10 : num);
-            self.words[word] = new Word(word, [], {pending: true, num: num});
+            self.words[word] = new Word(word, [], {pending: true, num: num, traditional: self.traditional});
         };
 
         self.setChoices = function(word, choices, lens, options){
@@ -194,14 +201,18 @@ var _callbacks_ = {
             self.$el.keydown(self.keyDown);
             self.$el.keypress(self.keyPress);
 
+            self.$toolbar = $('<div id="chinese-toolbar-' + self.id + '"></div>');
             self.$active = $('<label class="chinese-checkbox" for="check_' + self.id + '"><input type="checkbox"' + (self.options.active ? ' checked="checked"' : '')+ ' id="check_' + self.id + '"/> phonetic typing</label>');
+            self.$input = $('<label class="chinese-checkbox" for="type_' + self.id + '"><input type="checkbox"' + (self.options.input.initial == 'traditional' ? ' checked="checked"' : '')+ ' id="type_' + self.id + '"/> traditional</label>')
+
+            self.$toolbar.insertAfter(self.$el);
+            self.$toolbar.css({'position': 'absolute', 'z-index': 1000}).show();
+            self.reposition(self.$toolbar);
 
             if (self.options.allowHide) {
                 
                 var $hide = self.$active;
-                $hide.insertAfter(self.$el);
-                $hide.css({'position': 'absolute', 'z-index': 1000}).show();
-                self.reposition($hide);
+                $hide.appendTo(self.$toolbar);
                 $hide.find('input').click(function(){
                     self.options.active = $(this).is(':checked');
                     if (self.options.active === false){
@@ -213,14 +224,27 @@ var _callbacks_ = {
                 });
             }
 
+            if (self.options.input.allowChange){
+                self.$input.appendTo(self.$toolbar);
+                self.$input.find('input').click(function(){
+                    var trad = $(this).is(':checked');
+                    // self.options.input.initial = ( trad === true ? 'traditional' : 'simplified');
+                    $.wordDatabase.traditional = trad;
+                    self.updateDialog();
+                    self.$el.focus();
+                });
+            }
+
             if (self.options.input.initial == 'traditional'){
                 $.wordDatabase.traditional = true;
             }
 
-            $(window).resize($.proxy(function() {
+            $(window).resize($.proxy(function() { // TODO: attach to textarea resize event
                 this.self.updateDialog();
                 this.self.reposition();
             }, {'self': self}));
+
+            self.reposition();
         };
         
         self.keyDown = function(event){
@@ -347,11 +371,12 @@ var _callbacks_ = {
         };
 
         self.reposition = function($el){
-            var $hide = $el;
-            if (!$hide){
-                $hide = self.$active;
+            var $toolbar = $el;
+            if (!$toolbar){
+                $toolbar = self.$toolbar;
             }
-            $hide.position({my: 'left bottom',
+            $toolbar.css({'padding': '0 0 10px 5px'}).
+                     position({my: 'left bottom',
                                 at: 'left bottom',
                                 of: self.$el,
                                 collision: "none"});
