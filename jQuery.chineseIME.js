@@ -295,6 +295,13 @@ var _callbacks_ = {
                         self.previousPage();
                     } else if (key == '.') { // go to next page
                         self.nextPage();
+                    } else if (event.which == 13) {
+                        // enter key pressed -- accept phonetic input
+                        self.addText(self.currentText);
+                        self.currentText = '';
+                        self.currentPage = 0;
+                        self.currentSelection = 1;
+                        self.lastPage = false;
                     }
                 } else {
                     if (key == '.') { // pressed period
