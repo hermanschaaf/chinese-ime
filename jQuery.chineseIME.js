@@ -183,7 +183,7 @@ var _callbacks_ = {
         self.lastPage = false; // are we at the last page of options?
         //self.options = [];
         self.html = '<span class="typing"></span><ul class="options"></ul>';
-        self.url = 'http://www.google.com/inputtools/request?ime=pinyin&ie=utf-8&oe=utf-8&app=translate&uv'
+        self.url = '//www.google.com/inputtools/request?ime=pinyin&ie=utf-8&oe=utf-8&app=translate&uv'
         self.paramNames = {'text': 'text',
                            'num': 'num',
                            'callback': 'cb'}
