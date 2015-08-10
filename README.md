@@ -26,7 +26,7 @@ Features
 Demo
 -----------
 
-For a live demo of the plugin, go check out [ChineseIME.com](http://www.chineseime.com). There is also a demo included in this package in the `demo` folder.
+There is also a demo included in this package in the `demo` folder.
 
 Tested in
 -----------
